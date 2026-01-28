@@ -41,7 +41,9 @@ export async function searchFoods(query, opts = {}) {
     });
 
     if (!response.ok) {
-      throw new Error(`OpenRouter API error: ${response.statusText}`);
+      const errorBody = await response.text();
+      console.error(`OpenRouter API error (${response.status}):`, errorBody);
+      return [];
     }
 
     const data = await response.json();
