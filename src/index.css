@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-base text-white font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
+  .neon-text {
+    text-shadow: 0 0 10px rgba(204, 255, 0, 0.5);
+  }
+}
