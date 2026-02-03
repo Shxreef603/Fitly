@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 /**
  * Convert file to base64 string
@@ -21,13 +21,13 @@ export const fileToBase64 = (file) => {
 export const scanMeal = async (image, userGoals = null) => {
   try {
     let base64Image = image;
-    
+
     // Convert File to base64 if needed
     if (image instanceof File) {
       base64Image = await fileToBase64(image);
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/food-scan`, {
+    const response = await fetch(`${BASE_URL}/api/food-scan`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export const sendChatMessage = async (message, userGoals = null, image = null, c
       base64Image = image;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/chat`, {
+    const response = await fetch(`${BASE_URL}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export const sendChatMessage = async (message, userGoals = null, image = null, c
  */
 export const checkAPIHealth = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/health`);
+    const response = await fetch(`${BASE_URL}/health`);
     return response.ok;
   } catch (error) {
     return false;

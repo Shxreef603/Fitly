@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 /**
  * @param {string} query
@@ -10,7 +10,7 @@ export async function searchFoods(query, opts = {}) {
   if (!q) return [];
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/food-search`, {
+    const response = await fetch(`${BASE_URL}/api/food-search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
