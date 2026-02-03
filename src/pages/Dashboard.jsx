@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Plus, Flame, ChevronLeft, ChevronRight, Calendar, Copy, AlertCircle, X } from 'lucide-react';
+import { Plus, Flame, ChevronLeft, ChevronRight, Calendar, Copy, AlertCircle, X, Camera } from 'lucide-react';
 import AddMealModal from '../components/AddMealModal';
 import EditMealModal from '../components/EditMealModal';
 import { useAuth } from '../context/AuthContext';
@@ -12,6 +12,9 @@ import MealTimeline from '../components/MealTimeline';
 import ProfileDropdown from '../components/ProfileDropdown';
 import PlanSelectionModal from '../components/PlanSelectionModal';
 import EditGoalsModal from '../components/EditGoalsModal';
+import ScanMealModal from '../components/ScanMealModal';
+import ChatPanel from '../components/ChatPanel';
+import FitlyAIButton from '../components/FitlyAIButton';
 import { cn } from '../lib/utils';
 import {
     initializeMealsData,
@@ -47,7 +50,7 @@ const loadMealsFromStorage = () => {
             localStorage.removeItem('fitly_meals_v2');
             return out;
         }
-    } catch (_) {}
+    } catch (_) { }
     return {};
 };
 
@@ -65,6 +68,8 @@ const Dashboard = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
     const [isEditGoalsOpen, setIsEditGoalsOpen] = useState(false);
+    const [isScanModalOpen, setIsScanModalOpen] = useState(false);
+    const [isChatOpen, setIsChatOpen] = useState(false);
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [editingMeal, setEditingMeal] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -408,7 +413,18 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <QuickAdd onAdd={handleQuickAdd} />
+                    <div className="mb-4 flex gap-3">
+                        <div className="flex-1">
+                            <QuickAdd onAdd={handleQuickAdd} />
+                        </div>
+                        <button
+                            onClick={() => setIsScanModalOpen(true)}
+                            className="glass px-6 py-4 rounded-2xl hover:bg-white/10 transition-all flex items-center gap-2 font-semibold text-neon-lime"
+                        >
+                            <Camera size={20} />
+                            Scan Meal
+                        </button>
+                    </div>
 
                     <div className="mb-24">
                         <div className="flex justify-between items-end mb-6 px-2">
@@ -478,6 +494,27 @@ const Dashboard = () => {
                     />
                 )}
             </AnimatePresence>
+            <AnimatePresence>
+                {isScanModalOpen && (
+                    <ScanMealModal
+                        key="scan-meal"
+                        onClose={() => setIsScanModalOpen(false)}
+                        onAdd={(meal, slot) => {
+                            handleAddMeal(meal, slot);
+                            setIsScanModalOpen(false);
+                        }}
+                        userGoals={localUser.macros}
+                    />
+                )}
+            </AnimatePresence>
+
+            <FitlyAIButton onClick={() => setIsChatOpen(true)} />
+
+            <ChatPanel
+                isOpen={isChatOpen}
+                onClose={() => setIsChatOpen(false)}
+                userGoals={localUser.macros}
+            />
         </div>
     );
 };
