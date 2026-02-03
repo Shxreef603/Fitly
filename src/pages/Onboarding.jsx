@@ -5,7 +5,7 @@ import { calculateMacros, ACTIVITY_LEVELS, GOALS } from '../lib/nutrition';
 import { cn } from '../lib/utils';
 import { ChevronRight, Check } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { setProfile } from '../lib/firestore';
+import { setProfile, getProfile } from '../lib/firestore';
 
 const steps = [
     { id: 'welcome', title: "Let's Get Fitly", subtitle: "Your personal AI nutrition coach." },
@@ -29,11 +29,30 @@ const Onboarding = () => {
     });
 
     useEffect(() => {
-        if (user) {
-            // If user is already logged in, maybe skip to dashboard?
-            // For now let's just let them go through onboarding
-        }
-    }, [user]);
+        if (!user) return;
+
+        const checkExistingProfile = async () => {
+            // 1. Check local storage first (fastest)
+            const storedUser = localStorage.getItem('fitly_user');
+            if (storedUser) {
+                navigate('/dashboard');
+                return;
+            }
+
+            // 2. Check Firestore (for users on new devices/cleared cache)
+            try {
+                const profile = await getProfile(user.uid);
+                if (profile) {
+                    localStorage.setItem('fitly_user', JSON.stringify(profile));
+                    navigate('/dashboard');
+                }
+            } catch (err) {
+                console.warn("Error checking profile during onboarding:", err);
+            }
+        };
+
+        checkExistingProfile();
+    }, [user, navigate]);
 
     const nextStep = () => {
         if (currentStep < steps.length - 1) {

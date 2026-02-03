@@ -7,7 +7,6 @@ import EditMealModal from '../components/EditMealModal';
 import { useAuth } from '../context/AuthContext';
 import ConsistencyCard from '../components/ConsistencyCard';
 import PlanProgressCard from '../components/PlanProgressCard';
-import QuickAdd from '../components/QuickAdd';
 import MealTimeline from '../components/MealTimeline';
 import ProfileDropdown from '../components/ProfileDropdown';
 import PlanSelectionModal from '../components/PlanSelectionModal';
@@ -182,11 +181,6 @@ const Dashboard = () => {
         setEditingMeal(null);
     };
 
-    const handleQuickAdd = (food) => {
-        const slots = ['breakfast', 'lunch', 'snack', 'dinner'];
-        const targetSlot = slots.find((s) => (mealsForSelected[s] || []).length === 0) || 'breakfast';
-        handleAddMeal(food, targetSlot);
-    };
 
     const handleSelectPlan = async (plan) => {
         const next = {
@@ -413,16 +407,19 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className="mb-4 flex flex-col sm:flex-row gap-3">
-                        <div className="flex-1">
-                            <QuickAdd onAdd={handleQuickAdd} />
-                        </div>
+                    <div className="mb-8">
                         <button
                             onClick={() => setIsScanModalOpen(true)}
-                            className="glass px-6 py-4 rounded-2xl hover:bg-white/10 transition-all flex items-center justify-center gap-2 font-semibold text-neon-lime w-full sm:w-auto"
+                            className="glass w-full py-8 rounded-3xl hover:bg-white/10 transition-all flex flex-col items-center justify-center gap-3 border-2 border-dashed border-neon-lime/30 group relative overflow-hidden"
                         >
-                            <Camera size={20} />
-                            Scan Meal
+                            <div className="absolute inset-0 bg-neon-lime/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <div className="w-16 h-16 rounded-full bg-neon-lime/10 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                                <Camera size={32} className="text-neon-lime" />
+                            </div>
+                            <div className="text-center relative z-10">
+                                <span className="text-xl font-bold text-white block">Scan Your Meal</span>
+                                <p className="text-sm text-gray-400">Identify nutrients instantly with AI</p>
+                            </div>
                         </button>
                     </div>
 
