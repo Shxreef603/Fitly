@@ -118,7 +118,7 @@ const ScanMealModal = ({ onClose, onAdd, userGoals }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
             onClick={handleClose}
         >
             <motion.div
@@ -126,7 +126,7 @@ const ScanMealModal = ({ onClose, onAdd, userGoals }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-2xl max-h-[90vh] overflow-y-auto glass rounded-[2rem] p-6 relative"
+                className="w-full max-w-2xl max-h-[85vh] overflow-y-auto glass rounded-t-[2rem] sm:rounded-[2rem] p-5 sm:p-6 relative"
             >
                 <button
                     onClick={handleClose}

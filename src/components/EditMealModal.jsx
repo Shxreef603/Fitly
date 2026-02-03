@@ -28,7 +28,7 @@ const EditMealModal = ({ meal, onClose, onSave }) => {
 
     return (
         <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-4 text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -39,7 +39,7 @@ const EditMealModal = ({ meal, onClose, onSave }) => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                className="w-full max-w-md bg-[#181818] border border-white/10 rounded-3xl p-6 shadow-2xl"
+                className="w-full max-w-md bg-[#181818] border border-white/10 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl max-h-[85vh] overflow-y-auto"
             >
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-bold">Edit meal</h2>

@@ -82,12 +82,12 @@ const EditGoalsModal = ({ currentGoals, activePlan, onClose, onSave, onSavePlan 
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-4 text-white">
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="w-full max-w-md bg-[#181818] border border-white/10 rounded-3xl p-6 shadow-2xl"
+                className="w-full max-w-md bg-[#181818] border border-white/10 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl max-h-[85vh] overflow-y-auto"
             >
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold">Edit Daily Goals</h2>

@@ -51,12 +51,12 @@ const PlanSelectionModal = ({ onClose, onSelectPlan }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in text-white">
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="w-full max-w-2xl bg-[#181818] border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden relative"
+                className="w-full max-w-2xl bg-[#181818] border border-white/10 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl overflow-y-auto max-h-[85vh] relative"
             >
                 <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white z-10">
                     <X size={24} />

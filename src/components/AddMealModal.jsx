@@ -78,7 +78,7 @@ const AddMealModal = ({ onClose, onAdd, onSwitchToScan }) => {
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-                className="w-full max-w-md bg-[#181818] border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden relative"
+                className="w-full max-w-md bg-[#181818] border border-white/10 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl overflow-y-auto max-h-[85vh] sm:max-h-none relative"
             >
                 <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white">
                     <X size={24} />

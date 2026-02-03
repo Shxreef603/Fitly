@@ -120,7 +120,7 @@ const ChatPanel = ({ isOpen, onClose, userGoals }) => {
                     exit={{ x: '100%' }}
                     transition={{ type: 'spring', damping: 30, stiffness: 300 }}
                     onClick={(e) => e.stopPropagation()}
-                    className="absolute right-0 top-0 h-full w-full max-w-md glass border-l border-white/10 flex flex-col"
+                    className="absolute right-0 top-0 h-full w-[92vw] sm:max-w-md glass border-l border-white/10 flex flex-col"
                 >
                     {/* Header */}
                     <div className="p-4 border-b border-white/10 flex items-center justify-between">

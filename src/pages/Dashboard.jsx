@@ -258,7 +258,7 @@ const Dashboard = () => {
     const totals = calculateTotals(mealsForSelected);
 
     return (
-        <div className="min-h-screen bg-dark-base p-6 pb-24 text-white font-sans">
+        <div className="min-h-screen bg-dark-base p-3 sm:p-6 pb-24 text-white font-sans overflow-x-hidden">
             <AnimatePresence>
                 {showSyncFailedBanner && (
                     <motion.div
@@ -284,7 +284,7 @@ const Dashboard = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 relative z-30">
                 <div>
                     <h1 className="text-3xl font-black tracking-tight flex items-center gap-2">
                         Hi, {authUser?.displayName?.split(' ')[0] || 'Fit Fam'}{' '}
@@ -300,8 +300,8 @@ const Dashboard = () => {
             </div>
 
             {/* Date nav + Today label */}
-            <div className="flex items-center justify-between gap-2 mb-4">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+                <div className="flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto">
                     <button
                         onClick={goPrevDay}
                         className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10"
@@ -309,9 +309,9 @@ const Dashboard = () => {
                     >
                         <ChevronLeft size={20} />
                     </button>
-                    <div className="flex items-center gap-2 min-w-[160px] justify-center">
+                    <div className="flex items-center gap-2 flex-1 sm:flex-none sm:min-w-[160px] justify-center">
                         <Calendar size={18} className="text-gray-500 shrink-0" />
-                        <span className="font-semibold">
+                        <span className="font-semibold text-sm sm:text-base">
                             {format(selectedD, 'EEE, MMM d')}
                         </span>
                         {(isSelectedToday || isSelectedYesterday) && (
@@ -337,7 +337,7 @@ const Dashboard = () => {
                 {isSelectedToday && canCopyYesterday && (
                     <button
                         onClick={copyYesterday}
-                        className="text-xs font-semibold text-neon-cyan flex items-center gap-1.5 px-3 py-2 rounded-xl bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan/20"
+                        className="text-xs font-semibold text-neon-cyan flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-neon-cyan/10 hover:bg-neon-cyan/20 border border-neon-cyan/20 w-full sm:w-auto"
                     >
                         <Copy size={14} /> Copy yesterday
                     </button>
@@ -347,7 +347,7 @@ const Dashboard = () => {
                 <p className="text-[10px] text-gray-500 mb-2 flex items-center gap-1">Syncing…</p>
             )}
 
-            <div className="grid grid-cols-2 gap-3 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 <ConsistencyCard mealsData={mealsForSelected} mealsByDate={mealsByDate} />
                 <PlanProgressCard
                     activePlan={activePlan}
@@ -362,15 +362,15 @@ const Dashboard = () => {
             ) : (
                 <>
                     <div className="mb-8">
-                        <div className="glass p-6 rounded-[2rem] relative overflow-hidden">
+                        <div className="glass p-4 sm:p-6 rounded-[2rem] relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 blur-[80px] rounded-full pointer-events-none" />
                             <div className="relative z-10">
-                                <div className="flex justify-between items-end mb-4">
+                                <div className="flex justify-between items-start sm:items-end mb-4">
                                     <div>
-                                        <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">
+                                        <p className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">
                                             Calories Remaining
                                         </p>
-                                        <h2 className="text-5xl font-black text-white font-mono tracking-tighter">
+                                        <h2 className="text-4xl sm:text-5xl font-black text-white font-mono tracking-tighter">
                                             {(localUser.macros.calories - totals.calories).toLocaleString()}
                                         </h2>
                                         <p className="text-sm text-gray-400 font-medium mt-1">
@@ -389,7 +389,7 @@ const Dashboard = () => {
                                         }}
                                     />
                                 </div>
-                                <div className="grid grid-cols-3 gap-2">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                     {[
                                         { label: 'Protein', val: totals.protein, target: localUser.macros.protein, color: 'text-neon-lime', bg: 'bg-neon-lime' },
                                         { label: 'Carbs', val: totals.carbs, target: localUser.macros.carbs, color: 'text-neon-cyan', bg: 'bg-neon-cyan' },
@@ -413,13 +413,13 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className="mb-4 flex gap-3">
+                    <div className="mb-4 flex flex-col sm:flex-row gap-3">
                         <div className="flex-1">
                             <QuickAdd onAdd={handleQuickAdd} />
                         </div>
                         <button
                             onClick={() => setIsScanModalOpen(true)}
-                            className="glass px-6 py-4 rounded-2xl hover:bg-white/10 transition-all flex items-center gap-2 font-semibold text-neon-lime"
+                            className="glass px-6 py-4 rounded-2xl hover:bg-white/10 transition-all flex items-center justify-center gap-2 font-semibold text-neon-lime w-full sm:w-auto"
                         >
                             <Camera size={20} />
                             Scan Meal
