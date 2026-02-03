@@ -27,10 +27,9 @@ const MOCK_FOODS = [
     { name: 'Protein Bar', calories: 200, protein: 20, carbs: 22, fat: 6, icon: '🍫' },
 ];
 
-const AddMealModal = ({ onClose, onAdd }) => {
+const AddMealModal = ({ onClose, onAdd, onSwitchToScan }) => {
     const [activeTab, setActiveTab] = useState('search');
     const [searchQuery, setSearchQuery] = useState('');
-    const [isScanning, setIsScanning] = useState(false);
     const [apiResults, setApiResults] = useState([]);
     const [searching, setSearching] = useState(false);
 
@@ -57,21 +56,6 @@ const AddMealModal = ({ onClose, onAdd }) => {
         };
         onAdd(newMeal);
         onClose();
-    };
-
-    const simulateScan = () => {
-        setIsScanning(true);
-        setTimeout(() => {
-            handleAddFood({
-                name: 'AI Detected Bowl',
-                calories: 450,
-                protein: 35,
-                carbs: 45,
-                fat: 15,
-                icon: '🥗',
-            });
-            setIsScanning(false);
-        }, 2000);
     };
 
     const filteredMock = useMemo(
@@ -112,11 +96,10 @@ const AddMealModal = ({ onClose, onAdd }) => {
                         <Search size={18} /> Search
                     </button>
                     <button
-                        onClick={() => setActiveTab('photo')}
-                        className={cn("flex-1 py-3 rounded-xl flex items-center justify-center gap-2 transition-colors",
-                            activeTab === 'photo' ? "bg-neon-cyan text-black font-semibold" : "bg-white/5 text-gray-400")}
+                        onClick={onSwitchToScan}
+                        className="flex-1 py-3 rounded-xl flex items-center justify-center gap-2 transition-colors bg-white/5 text-gray-400 hover:bg-white/10"
                     >
-                        <Camera size={18} /> AI Scan
+                        <Camera size={18} /> Scan Meal
                     </button>
                 </div>
 
@@ -164,27 +147,6 @@ const AddMealModal = ({ onClose, onAdd }) => {
                                 )}
                             </div>
                         </>
-                    )}
-
-                    {activeTab === 'photo' && (
-                        <div className="flex flex-col items-center justify-center h-[300px] text-center">
-                            {isScanning ? (
-                                <>
-                                    <div className="w-24 h-24 border-4 border-neon-cyan border-t-transparent rounded-full animate-spin mb-4" />
-                                    <p className="text-neon-cyan font-mono animate-pulse">Analyzing Macros...</p>
-                                </>
-                            ) : (
-                                <>
-                                    <div className="w-full h-48 bg-white/5 border-2 border-dashed border-white/20 rounded-2xl flex flex-col items-center justify-center mb-6 cursor-pointer hover:border-neon-cyan/50 transition-colors" onClick={simulateScan}>
-                                        <Camera size={48} className="text-gray-500 mb-2" />
-                                        <p className="text-sm text-gray-400">Tap to Scan Food</p>
-                                    </div>
-                                    <button onClick={simulateScan} className="w-full py-4 bg-neon-cyan text-black font-bold rounded-xl">
-                                        Take Photo
-                                    </button>
-                                </>
-                            )}
-                        </div>
                     )}
                 </div>
 

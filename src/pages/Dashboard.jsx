@@ -459,6 +459,10 @@ const Dashboard = () => {
                             handleAddMeal(meal, selectedSlot);
                             setIsAddModalOpen(false);
                         }}
+                        onSwitchToScan={() => {
+                            setIsAddModalOpen(false);
+                            setIsScanModalOpen(true);
+                        }}
                         initialSlot={selectedSlot}
                     />
                 )}
